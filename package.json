@@ -4,10 +4,10 @@
   "description": "A simple dependency-free pagination module",
   "main": "paginate.js",
   "directories": {
-    "test": "./node_modules/.bin/karma start Firefox --single-run"
+    "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/karma start Firefox --single-run"
   },
   "author": "Aaron Ballard",
   "devDependencies": {
