@@ -1,0 +1,17 @@
+{
+  "globals": {
+    "describe": true,
+    "xdescribe": true,
+    "it": true,
+    "xit": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "inject": true,
+    "angular": true,
+    "expect": true,
+    "spyOn": true,
+    "jasmine": true,
+    "module": true,
+    "paginate": true
+  }
+}
