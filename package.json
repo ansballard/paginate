@@ -1,6 +1,6 @@
 {
   "name": "@ansballard/paginate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple dependency-free pagination module",
   "main": "paginate.js",
   "directories": {
