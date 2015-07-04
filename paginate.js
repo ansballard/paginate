@@ -22,8 +22,6 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		throw "Paginate count per page must be a positive integer";
 	}
 	var getContent = contentAsFunction;
-	var tmpContent;
-	var tmpNumPages;
 
 	return {
 		/**

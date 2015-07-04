@@ -1,0 +1,10 @@
+{
+  "globals": {
+    "angular": true,
+    "paginate": true,
+    "console": true
+  },
+  "rules": {
+    "no-console": 0
+  }
+}
