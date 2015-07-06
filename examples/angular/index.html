@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Paginate in Angular</title>
+</head>
+
+<body>
+
+  <div ng-app="paginate" ng-controller="paginateCtrl">
+
+    <span class="paginate paginateList">
+      <h1>Paginate a List</h1>
+      <div class="paginateMenu">
+        <span class="navButtons" ng-show="paginateList.getNumPages() > 1">
+          <button type="button" ng-click="paginateList.prevPage()">Prev</button>
+          <span>{{paginateList.getPage() + 1}} / {{paginateList.getNumPages()}}</span>
+          <button type="button" ng-click="paginateList.nextPage()">Next</button>
+        </span>
+      </div>
+
+      <ul>
+        <li ng-repeat="repo in paginateList.getVisibleContent() track by repo.id">{{repo.name}}</li>
+      </ul>
+    </span>
+
+    <span class="paginate paginateTable">
+
+      <div class="paginateMenu">
+        <h1>Paginate a Table with Search</h1>
+        <input style="display: inline-block;" ng-model="filter.paginateTable" ng-model-options="{debounce: 250}" />
+        <span class="navButtons" ng-show="paginateTable.getNumPages() > 1">
+          <button type="button" ng-click="paginateTable.prevPage()">Prev</button>
+          <span>{{paginateTable.getPage() + 1}} / {{paginateTable.getNumPages()}}</span>
+          <button type="button" ng-click="paginateTable.nextPage()">Next</button>
+        </span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Author</th>
+            <th>Repo Name</th>
+            <th>Private</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="repo in paginateTable.getVisibleContent() track by repo.id">
+            <td>{{repo.owner.login}}</td>
+            <td>{{repo.name}}</td>
+            <td>{{repo.private}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </span>
+
+    <span class="paginate paginateList">
+      <h1>Change page count</h1>
+      <div class="paginateMenu">
+        <input style="display: inline-block;" type="number" step="1" min="1" ng-init="changeCount = paginateListOptions.getCount()" ng-model="changeCount" ng-change="paginateListOptions.setCount(changeCount)"/>
+        <span class="navButtons" ng-show="paginateListOptions.getNumPages() > 1">
+          <button type="button" ng-click="paginateListOptions.prevPage()">Prev</button>
+          <span>{{paginateListOptions.getPage() + 1}} / {{paginateListOptions.getNumPages()}}</span>
+          <button type="button" ng-click="paginateListOptions.nextPage()">Next</button>
+        </span>
+      </div>
+
+      <ul>
+        <li ng-repeat="repo in paginateListOptions.getVisibleContent() track by repo.id">{{repo.name}}</li>
+      </ul>
+    </span>
+
+  <button ng-click="tmp()">Temp</button>
+
+    <span class="paginate paginateList">
+      <h1>Choose any page</h1>
+      <div class="paginateMenu">
+        <!--<select style="display: inline-block;" ng-init="currentPage = paginateListSelect.getPage()" ng-model="currentPage" ng-change="paginateListSelect.setPage(currentPage)" ng-options="option.index for option in paginateListSelect.getPages()"></select>-->
+        <span class="navButtons" ng-show="paginateListSelect.getNumPages() > 1">
+          <button type="button" ng-click="paginateListSelect.prevPage()">Prev</button>
+          <span>{{paginateListSelect.getPage() + 1}} / {{paginateListSelect.getNumPages()}}</span>
+          <button type="button" ng-click="paginateListSelect.nextPage()">Next</button>
+        </span>
+      </div>
+
+      <ul>
+        <li ng-repeat="repo in paginateListSelect.getVisibleContent() track by repo.id">{{repo.name}}</li>
+      </ul>
+    </span>
+
+  </div>
+
+  <script type="text/javascript" src="../../paginate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script type="text/javascript" src="paginateInAngular.js"></script>
+</body>
+
+</html>

@@ -4,9 +4,10 @@
   var paginateModule = angular.module("paginate", []);
 
   paginateModule
-    .controller("paginateCtrl", ["$scope", "githubService", function($scope, githubService) {
+    .controller("paginateCtrl", ["$scope", "$filter", "githubService", function($scope, $filter, githubService) {
 
       $scope.topRepos = [];
+      $scope.filter = {};
 
       githubService.getTopRepos("ansballard",
         function(topRepos) {
@@ -20,7 +21,26 @@
         }
       );
 
-      $scope.paginate = paginate(10, function() { return $scope.topRepos; });
+			var getFilteredContent = function getFilteredContent() {
+				return $filter("filter")($scope.topRepos, $scope.filter.paginateTable);
+			};
+
+      var getPageNumberArray = function getPageNumberArray() {
+        var arr = [];
+        for(var i = 0; i < $scope.paginateListSelect.getNumPages(); i++) {
+          arr.push(i);
+        }
+        console.log(arr);
+        return arr;
+      }
+
+      $scope.paginateList = paginate(10, function() { return $scope.topRepos; });
+
+      $scope.paginateTable = paginate(10, getFilteredContent);
+
+      $scope.paginateListOptions = paginate(10, function() { return $scope.topRepos; });
+
+      $scope.paginateListSelect = paginate(10, function() { return $scope.topRepos; });
 
     }])
     .factory("githubService", ["$http", function($http) {

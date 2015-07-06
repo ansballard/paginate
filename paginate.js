@@ -16,6 +16,8 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 
 	var page = 0;
 	var count = 0;
+	var i = 0;
+	var j = 0;
 	if (numberisInteger(countPerPage) && countPerPage > 0) {
 		count = countPerPage;
 	} else {
@@ -65,6 +67,37 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		 */
 		getPage: function paginateGetPage() {
 			return page;
+		},
+		/**
+		 *  get the current page, index 0
+		 *  @name paginate.getVisibleContent
+		 *  @return {integer} Current visible content
+		 */
+		getVisibleContent: function paginateGetVisibleContent() {
+			var visibleList = [];
+			var content = getContent();
+			for(i = page * count; i < (page * count) + count && i < content.length; i++) {
+				visibleList.push(content[i]);
+			}
+			return visibleList;
+		},
+		/**
+		 *  get a list of pages and count per page
+		 *  @name paginate.getPages
+		 *  @return {integer} Current list of pages and page info
+		 */
+		getPages: function paginateGetPages() {
+			var pageList = [];
+			var content = getContent();
+			var numPages = this.getNumPages();
+			for(i = 0; i < numPages; i++) {
+				pageList.push({"count": count, "index": i, "first": i === 0, "last": i === numPages - 1});
+			}
+			console.log(pageList);
+			if(pageList.length > 0) {
+				pageList[pageList.length - 1].count = content.length % count;
+			}
+			return pageList;
 		},
 		/**
 		 *  Get the current number of pages based on total number of items and items per page
