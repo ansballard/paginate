@@ -13,6 +13,7 @@
         function(topRepos) {
           $scope.errorMessage = undefined;
           $scope.topRepos = topRepos;
+      		$scope.listSelectNumPages = $scope.paginateListSelect.getPages(); // digest cycle doesn't like getPages()
         },
         function(error) {
           $scope.topRepos = [];
@@ -24,15 +25,11 @@
 			var getFilteredContent = function getFilteredContent() {
 				return $filter("filter")($scope.topRepos, $scope.filter.paginateTable);
 			};
-
-      var getPageNumberArray = function getPageNumberArray() {
-        var arr = [];
-        for(var i = 0; i < $scope.paginateListSelect.getNumPages(); i++) {
-          arr.push(i);
-        }
-        console.log(arr);
-        return arr;
-      }
+			
+			$scope.tmp = function tmp() {
+				$scope.paginateList.setPage(2);
+				console.log($scope.paginateList.getPage())
+			};
 
       $scope.paginateList = paginate(10, function() { return $scope.topRepos; });
 

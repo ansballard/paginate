@@ -45,6 +45,19 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 			return false;
 		},
 		/**
+		 *  Set the current page
+		 *  @name paginate.setPage
+		 *  @param {integer} pageNum The page to go to
+		 */
+		setPage: function paginateSetPage(newPage) {
+			if (numberisInteger(newPage) && newPage >= 0 && newPage < this.getNumPages()) {
+				page = newPage;
+			} else {
+				throw "Paginate page must be between 0 and numPages";
+			}
+			return false;
+		},
+		/**
 		 *  Get the current number of items per page
 		 *  @name paginate.getCount
 		 *  @return {integer} Current count
@@ -93,7 +106,6 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 			for(i = 0; i < numPages; i++) {
 				pageList.push({"count": count, "index": i, "first": i === 0, "last": i === numPages - 1});
 			}
-			console.log(pageList);
 			if(pageList.length > 0) {
 				pageList[pageList.length - 1].count = content.length % count;
 			}

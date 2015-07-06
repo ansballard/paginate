@@ -72,12 +72,10 @@
       </ul>
     </span>
 
-  <button ng-click="tmp()">Temp</button>
-
     <span class="paginate paginateList">
       <h1>Choose any page</h1>
       <div class="paginateMenu">
-        <!--<select style="display: inline-block;" ng-init="currentPage = paginateListSelect.getPage()" ng-model="currentPage" ng-change="paginateListSelect.setPage(currentPage)" ng-options="option.index for option in paginateListSelect.getPages()"></select>-->
+        <button ng-repeat="option in listSelectNumPages" ng-click="paginateListSelect.setPage(option.index)">{{option.index + 1}}</button>
         <span class="navButtons" ng-show="paginateListSelect.getNumPages() > 1">
           <button type="button" ng-click="paginateListSelect.prevPage()">Prev</button>
           <span>{{paginateListSelect.getPage() + 1}} / {{paginateListSelect.getNumPages()}}</span>
@@ -92,7 +90,7 @@
 
   </div>
 
-  <script type="text/javascript" src="../../paginate.js"></script>
+  <script type="text/javascript" src="../../paginate.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
   <script type="text/javascript" src="paginateInAngular.js"></script>
 </body>
