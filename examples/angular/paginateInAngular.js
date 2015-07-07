@@ -25,11 +25,6 @@
 			var getFilteredContent = function getFilteredContent() {
 				return $filter("filter")($scope.topRepos, $scope.filter.paginateTable);
 			};
-			
-			$scope.tmp = function tmp() {
-				$scope.paginateList.setPage(2);
-				console.log($scope.paginateList.getPage())
-			};
 
       $scope.paginateList = paginate(10, function() { return $scope.topRepos; });
 
