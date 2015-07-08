@@ -89,6 +89,9 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		getVisibleContent: function paginateGetVisibleContent() {
 			var visibleList = [];
 			var content = getContent();
+			if(page >= this.getNumPages()) {
+				page = 0;
+			}
 			for(i = page * count; i < (page * count) + count && i < content.length; i++) {
 				visibleList.push(content[i]);
 			}
