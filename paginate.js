@@ -92,9 +92,11 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 			if(page >= this.getNumPages()) {
 				page = 0;
 			}
-			for(i = page * count; i < (page * count) + count && i < content.length; i++) {
+			var startIndex = page * count;
+			/*for(i = page * count; i < (page * count) + count && i < content.length; i++) {
 				visibleList.push(content[i]);
-			}
+			}*/
+			visibleList = content.slice(startIndex, startIndex + count);
 			return visibleList;
 		},
 		/**
@@ -162,7 +164,7 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		 */
 		firstPage: function paginateFirstPage() {
 			page = 0;
-			return false;
+			return this.getVisibleContent();
 		},
 		/**
 		 *  Set the current page to the previous page
@@ -176,7 +178,7 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		 */
 		prevPage: function paginatePrevPage() {
 			page = !this.getIsFirstPage() ? page - 1 : page;
-			return false;
+			return this.getVisibleContent();
 		},
 		/**
 		 *  Set the current page to the next page
@@ -189,7 +191,7 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		 */
 		nextPage: function paginateNextPage() {
 			page = !this.getIsLastPage() ? page + 1 : page;
-			return false;
+			return this.getVisibleContent();
 		},
 		/**
 		 *  Set the current page to the last page
@@ -202,7 +204,7 @@ var paginate = function paginate(countPerPage, contentAsFunction) {
 		 */
 		lastPage: function paginateLastPage() {
 			page = this.getNumPages() - 1;
-			return false;
+			return this.getVisibleContent();
 		}
 	};
 };
