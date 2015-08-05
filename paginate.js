@@ -1,4 +1,12 @@
+/** @preserve
+ *  @ansballard/paginate
+ *  This is a simple, dependency-free pagination module, which handles the logic
+ *  for paginating arbitrary data given as functions
+ *  MIT License
+ */
+
 (function(that) {
+	"use strict";
 	/**
 	 *  An object to handle all the logic for a basic paginated list/table
 	 *  @name paginate
@@ -7,8 +15,6 @@
 	 *  @return {Object} Paginate object that holds all the logic for pagination
 	 */
 	var paginate = function paginate(countPerPage, contentAsFunction) {
-		"use strict";
-
 		var numberisInteger = function numberisInteger(value) {
 			return typeof value === "number" &&
 				isFinite(value) &&
@@ -18,7 +24,6 @@
 		var page = 0;
 		var count = 0;
 		var i = 0;
-		var j = 0;
 		if (numberisInteger(countPerPage) && countPerPage > 0) {
 			count = countPerPage;
 		} else {
@@ -210,10 +215,11 @@
 		};
 	};
 
+	/*globals module define*/
 	if(typeof define === "function" && define.amd) {
 		define(function() {
 			return paginate;
-		})
+		});
 	} else if(typeof module !== "undefined" && module.exports) {
 		module.exports = paginate;
 	} else {

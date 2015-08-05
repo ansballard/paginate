@@ -1,27 +1,29 @@
 {
-  "name": "ansballard-paginate",
-  "main": "paginate.js",
-  "version": "1.1.0",
-  "homepage": "https://github.com/ansballard/paginate",
-  "authors": [
-    "Aaron Ballard <ans.ballard@gmail.com>"
-  ],
-  "description": "A dead-simple zero-dependency single-file pagination module",
-  "moduleType": [
-    "globals"
-  ],
-  "repository": {
-	  "type": "git",
-	  "url": "git://github.com/ansballard/paginate.git"
-	},
-  "keywords": [
-  	"pagination"
-  ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "name": "ansballard-paginate",
+    "main": "paginate.js",
+    "version": "1.1.4",
+    "homepage": "https://github.com/ansballard/paginate",
+    "authors": [
+        "Aaron Ballard <ans.ballard@gmail.com>"
+    ],
+    "description": "A simple dependency-free pagination module",
+    "moduleType": [
+        "globals",
+        "node",
+        "amd"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ansballard/paginate.git"
+    },
+    "keywords": [
+        "pagination"
+    ],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
 }

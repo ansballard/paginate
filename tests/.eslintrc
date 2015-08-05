@@ -13,5 +13,8 @@
     "jasmine": true,
     "module": true,
     "paginate": true
+  },
+  "rules": {
+    "no-unused-vars": 0
   }
 }

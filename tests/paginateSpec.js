@@ -83,7 +83,7 @@ describe("paginate", function() {
 	describe("setCount(val)", function() {
 
 		it("should set the count = val", function() {
-			tmp = p(10, []);
+			tmp = p(10, function() { return []; });
 			tmpIter = 0;
 			for (i = 0; i < validCounts.length; i++) {
 				tmp.setCount(validCounts[i]);

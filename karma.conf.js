@@ -15,7 +15,7 @@ module.exports = function(config) { "use strict";
 
     // list of files / patterns to load in the browser
     files: [
-      "paginate.js",
+      require("./package.json").main,
       "tests/*Spec.js"
     ],
 
