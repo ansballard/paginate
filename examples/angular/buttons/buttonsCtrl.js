@@ -2,7 +2,7 @@
   "use strict";
 
   angular.module("paginate.buttons")
-    .controller(ButtonsCtrl);
+    .controller("ButtonsCtrl", ButtonsCtrl);
 
   ButtonsCtrl.$inject = [];
 
@@ -10,7 +10,6 @@
 
     var vm = this;
 
-    vm.paginate = paginate(10, vm.listData);
-
   }
+
 }());

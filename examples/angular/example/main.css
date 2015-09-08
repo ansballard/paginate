@@ -1,0 +1,7 @@
+buttons-directive, .paginate-btn,  .paginate-wrapper-state, .filter-paginate-2 {
+  display: inline-block;
+}
+.paginate-state-current::after {
+  content: "/";
+  margin-left: 5px;
+}

@@ -4,95 +4,30 @@
 <head>
   <meta charset="utf-8">
   <title>Paginate in Angular</title>
+  <link href="example/main.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <div ng-app="paginate" ng-controller="paginateCtrl">
+  <div ng-app="example">
 
-    <span class="paginate paginateList">
-      <h1>Paginate a List</h1>
-      <div class="paginateMenu">
-        <span class="navButtons" ng-show="paginateList.getNumPages() > 1">
-          <button type="button" ng-click="paginateList.prevPage()">Prev</button>
-          <span>{{paginateList.getPage() + 1}} / {{paginateList.getNumPages()}}</span>
-          <button type="button" ng-click="paginateList.nextPage()">Next</button>
-        </span>
-      </div>
-
-      <ul>
-        <li ng-repeat="repo in paginateList.getVisibleContent() track by repo.id">{{repo.name}}</li>
-      </ul>
-    </span>
-
-    <span class="paginate paginateTable">
-
-      <div class="paginateMenu">
-        <h1>Paginate a Table with Search</h1>
-        <input style="display: inline-block;" ng-model="filter.paginateTable" ng-model-options="{debounce: 250}" />
-        <span class="navButtons" ng-show="paginateTable.getNumPages() > 1">
-          <button type="button" ng-click="paginateTable.prevPage()">Prev</button>
-          <span>{{paginateTable.getPage() + 1}} / {{paginateTable.getNumPages()}}</span>
-          <button type="button" ng-click="paginateTable.nextPage()">Next</button>
-        </span>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Author</th>
-            <th>Repo Name</th>
-            <th>Private</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="repo in paginateTable.getVisibleContent() track by repo.id">
-            <td>{{repo.owner.login}}</td>
-            <td>{{repo.name}}</td>
-            <td>{{repo.private}}</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </span>
-
-    <span class="paginate paginateList">
-      <h1>Change page count</h1>
-      <div class="paginateMenu">
-        <input style="display: inline-block;" type="number" step="1" min="1" ng-init="changeCount = paginateListOptions.getCount()" ng-model="changeCount" ng-change="paginateListOptions.setCount(changeCount)"/>
-        <span class="navButtons" ng-show="paginateListOptions.getNumPages() > 1">
-          <button type="button" ng-click="paginateListOptions.prevPage()">Prev</button>
-          <span>{{paginateListOptions.getPage() + 1}} / {{paginateListOptions.getNumPages()}}</span>
-          <button type="button" ng-click="paginateListOptions.nextPage()">Next</button>
-        </span>
-      </div>
-
-      <ul>
-        <li ng-repeat="repo in paginateListOptions.getVisibleContent() track by repo.id">{{repo.name}}</li>
-      </ul>
-    </span>
-
-    <span class="paginate paginateList">
-      <h1>Choose any page</h1>
-      <div class="paginateMenu">
-        <button ng-repeat="option in listSelectNumPages" ng-click="paginateListSelect.setPage(option.index)">{{option.index + 1}}</button>
-        <span class="navButtons" ng-show="paginateListSelect.getNumPages() > 1">
-          <button type="button" ng-click="paginateListSelect.prevPage()">Prev</button>
-          <span>{{paginateListSelect.getPage() + 1}} / {{paginateListSelect.getNumPages()}}</span>
-          <button type="button" ng-click="paginateListSelect.nextPage()">Next</button>
-        </span>
-      </div>
-
-      <ul>
-        <li ng-repeat="repo in paginateListSelect.getVisibleContent() track by repo.id">{{repo.name}}</li>
-      </ul>
-    </span>
+    <example-directive></example-directive>
 
   </div>
 
   <script type="text/javascript" src="../../paginate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <script type="text/javascript" src="paginateInAngular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+  <script type="text/javascript" src="buttons/paginate.module.js"></script>
+  <script type="text/javascript" src="api/api.module.js"></script>
+  <script type="text/javascript" src="buttons/buttons.module.js"></script>
+  <script type="text/javascript" src="api/apiService.js"></script>
+  <script type="text/javascript" src="buttons/buttonsCtrl.js"></script>
+  <script type="text/javascript" src="buttons/buttonsDirective.js"></script>
+
+  <script type="text/javascript" src="example/example.module.js"></script>
+  <script type="text/javascript" src="example/exampleCtrl.js"></script>
+  <script type="text/javascript" src="example/exampleDirective.js"></script>
 </body>
 
 </html>

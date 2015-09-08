@@ -1,10 +1,10 @@
 <div class="paginate-wrapper">
-  <button class="paginate-btn-first" ng-disabled="vm.paginate.getIsFirstPage()" ng-click="vm.paginate.firstPage()">First</button>
-  <button class="paginate-btn-prev" ng-disabled="vm.paginate.getIsFirstPage()" ng-click="vm.paginate.prevPage()">Prev</button>
-  <div class="paginate-state-wrapper">
-    <span class="paginate-state-current">{{vm.paginate.getPage()+1}}</span>
-    <span class="paginate-state-total">{{vm.paginate.getNumPages()}}</span>
+  <button class="paginate-btn paginate-btn-first" ng-disabled="vm.paginateHandler.getIsFirstPage()" ng-click="vm.paginateHandler.firstPage()">First</button>
+  <button class="paginate-btn paginate-btn-prev" ng-disabled="vm.paginateHandler.getIsFirstPage()" ng-click="vm.paginateHandler.prevPage()">Prev</button>
+  <div class="paginate-wrapper-state">
+    <span class="paginate-state-current">{{vm.paginateHandler.getPage()+1}}</span>
+    <span class="paginate-state-total">{{vm.paginateHandler.getNumPages()}}</span>
   </div>
-  <button class="paginate-btn-next" ng-disabled="vm.paginate.getIsLastPage()" ng-click="vm.paginate.nextPage()">Next</button>
-  <button class="paginate-btn-last" ng-disabled="vm.paginate.getIsLastPage()" ng-click="vm.paginate.lastPage()">Last</button>
+  <button class="paginate-btn paginate-btn-next" ng-disabled="vm.paginateHandler.getIsLastPage()" ng-click="vm.paginateHandler.nextPage()">Next</button>
+  <button class="paginate-btn paginate-btn-last" ng-disabled="vm.paginateHandler.getIsLastPage()" ng-click="vm.paginateHandler.lastPage()">Last</button>
 </div>

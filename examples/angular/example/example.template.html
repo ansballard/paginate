@@ -1,0 +1,20 @@
+<span class="paginate paginateList">
+
+  <h1 ng-if="vm.loading">Loading...</h1>
+
+  <h1>Paginate a List via Module 1</h1>
+  <pagination-nav count="20" handler="vm.paginate1" list-data="vm.getData"></pagination-nav>
+
+  <ul>
+    <li ng-repeat="item in vm.paginate1.getVisibleContent()">{{item.name}}</li>
+  </ul>
+
+  <h1>Paginate a List via Module 2</h1>
+  <pagination-nav handler="vm.paginate2" list-data="vm.getFilteredContent"></pagination-nav>
+  <input class="filter-paginate-2" placeholder="Filter Module 2" ng-model="vm.filters.paginate2"/>
+
+  <ul>
+    <li ng-repeat="item in vm.paginate2.getVisibleContent()">{{item.name}}</li>
+  </ul>
+
+</span>
