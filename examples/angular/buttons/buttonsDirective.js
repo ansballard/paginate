@@ -2,13 +2,13 @@
   "use strict";
 
   angular.module("paginate.buttons")
-      .directive("myCalendarRange", ButtonsDirective);
+      .directive("ButtonsDirective", ButtonsDirective);
 
   function ButtonsDirective() {
-      var directive = {
+      return {
           link: link,
           scope: {
-
+            listData: "@"
           },
           templateUrl: "buttons.template.html",
           restrict: "EA",
@@ -16,7 +16,6 @@
           controllerAs: "vm",
           bindToController: true
       };
-      return directive;
 
       function link() {
 

@@ -1,53 +1,43 @@
 (function() {
   "use strict";
 
-  var paginateModule = angular.module("paginate", []);
+  angular.module("example", ["paginate"])
+    .controller(PaginateCtrl);
 
-  paginateModule
-    .controller("paginateCtrl", ["$scope", "$filter", "githubService", function($scope, $filter, githubService) {
+  PaginateCtrl.$inject = ["$filter", "paginate.api", "paginate.buttons"];
 
-      $scope.topRepos = [];
-      $scope.filter = {};
+  function PaginateCtrl($filter, api, buttons) {
 
-      githubService.getTopRepos("ansballard",
-        function(topRepos) {
-          $scope.errorMessage = undefined;
-          $scope.topRepos = topRepos;
-      		$scope.listSelectNumPages = $scope.paginateListSelect.getPages(); // digest cycle doesn't like getPages()
-        },
-        function(error) {
-          $scope.topRepos = [];
-          $scope.errorMessage = "There was an error retrieving the top Github repos";
-          console.log(error);
-        }
-      );
+    var vm = this;
 
-			var getFilteredContent = function getFilteredContent() {
-				return $filter("filter")($scope.topRepos, $scope.filter.paginateTable);
-			};
+    vm.topRepos = [];
+    vm.filter = {};
 
-      $scope.paginateList = paginate(10, function() { return $scope.topRepos; });
+    api.getTopRepos("ansballard")
+      .then(function(topRepos) {
+        vm.errorMessage = undefined;
+        vm.topRepos = topRepos;
+        vm.listSelectNumPages = vm.paginateListSelect.getPages(); // digest cycle doesn't like getPages()
+      },
+      function(error) {
+        vm.topRepos = [];
+        vm.errorMessage = "There was an error retrieving the top Github repos";
+        console.log(error);
+      })
+    ;
 
-      $scope.paginateTable = paginate(10, getFilteredContent);
+		var getFilteredContent = function getFilteredContent() {
+			return $filter("filter")(vm.topRepos, vm.filter.paginateTable);
+		};
 
-      $scope.paginateListOptions = paginate(10, function() { return $scope.topRepos; });
+    vm.paginateList = paginate(10, function() { return vm.topRepos; });
 
-      $scope.paginateListSelect = paginate(10, function() { return $scope.topRepos; });
+    vm.paginateTable = paginate(10, getFilteredContent);
 
-    }])
-    .factory("githubService", ["$http", function($http) {
+    vm.paginateListOptions = paginate(10, function() { return vm.topRepos; });
 
-      return {
+    vm.paginateListSelect = paginate(10, function() { return vm.topRepos; });
 
-        getTopRepos: function(username, success, error) {
-          $http.get("https://api.github.com/users/" + username + "/repos")
-            .success(success)
-            .error(error)
-          ;
-        }
-
-      };
-
-    }]);
+  }
 
 }());
