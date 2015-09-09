@@ -3,5 +3,8 @@
     "require": true,
     "module": true,
     "define": true
+  },
+  "rules": {
+    "no-use-before-define": 0
   }
 }

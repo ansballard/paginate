@@ -21,6 +21,7 @@
   "author": "Aaron Ballard <ans.ballard@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "docco": "^0.7.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
     "gulp-plumber": "^1.0.1",

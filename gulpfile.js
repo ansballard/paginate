@@ -5,6 +5,7 @@ var eslint = require("gulp-eslint");
 var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var sourcemaps = require("gulp-sourcemaps");
+var docco = require("docco");
 var packagejson = JSON.parse(fs.readFileSync("./package.json"));
 
 gulp.task("populateBower", function(cb) {
@@ -37,7 +38,7 @@ gulp.task("populateBower", function(cb) {
   };
   fs.writeFile("bower.json", JSON.stringify(bowerjson, null, 4), function(err) {
     if(err) {
-      throw "bower.json could not be written, eixting...";
+      throw "bower.json could not be written, exiting...";
     } else {
       cb();
     }
@@ -80,10 +81,17 @@ gulp.task("build", ["lintmain", "linttests"], function() {
   ;
 });
 
-gulp.task("default", ["build", "populateBower"]);
+gulp.task("docs", function(cb) {
+  "use strict";
+  docco.document({
+    "args": [packagejson.main]
+  }, cb);
+});
+
+gulp.task("default", ["build", "populateBower", "docs"]);
 
 gulp.task("watch", ["default"], function() {
   "use strict";
-  gulp.watch(packagejson.main, ["build"]);
+  gulp.watch(packagejson.main, ["build", "docs"]);
   gulp.watch("package.json", ["populateBower"]);
 });

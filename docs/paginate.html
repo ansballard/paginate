@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>paginate.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="paginate-js">paginate.js</h1>
+<p>A dependency-free node module to handle data pagination</p>
+<p><a href="https://www.npmjs.com/package/@ansballard/paginate">@ansballard/paginate</a></p>
+<p><a href="http://opensource.org/licenses/MIT">MIT License</a></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="paginate-int-fn-">Paginate( int, fn )</h1>
+<p>The constructor takes two parameters, both required. The first is
+the number of items to return per page. The second is a function
+that returns the data set to be paginated, as an array.</p>
+<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> paginatedList = paginate(
+    <span class="hljs-number">5</span>,
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"f"</span>, <span class="hljs-string">"g"</span>];
+    }
+  ); <span class="hljs-comment">// Only ["a", "b", "c", "d", "e"] will be returned</span>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">that</span>) </span>{
+<span class="hljs-pi">	"use strict"</span>;
+	<span class="hljs-keyword">var</span> paginate = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginate</span>(<span class="hljs-params">countPerPage, contentAsFunction</span>) </span>{
+		<span class="hljs-keyword">var</span> page = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">if</span> (numberisInteger(countPerPage) &amp;&amp; countPerPage &gt; <span class="hljs-number">0</span>) {
+			count = countPerPage;
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">throw</span> <span class="hljs-string">"Paginate count per page must be a positive integer"</span>;
+		}
+		<span class="hljs-keyword">var</span> getContent = contentAsFunction;
+
+		<span class="hljs-keyword">return</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h1 id="setcount-int-">setCount( int )</h1>
+<p>Sets the number of items to return per page to the given parameter.
+Will throw an exception if the parameter is <code>NaN</code> or negative.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			setCount: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateSetCount</span>(<span class="hljs-params">newCount</span>) </span>{
+				<span class="hljs-keyword">if</span> (numberisInteger(newCount) &amp;&amp; newCount &gt; <span class="hljs-number">0</span>) {
+					count = newCount;
+				} <span class="hljs-keyword">else</span> {
+					<span class="hljs-keyword">throw</span> <span class="hljs-string">"Paginate count per page must be a positive integer"</span>;
+				}
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h1 id="setpage-int-">setPage( int )</h1>
+<p>Sets the current page index to the given parameter.
+Will throw an exception if the parameter is <code>NaN</code> or outside the range of 0 and <code>getNumPages()</code>.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			setPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateSetPage</span>(<span class="hljs-params">newPage</span>) </span>{
+				<span class="hljs-keyword">if</span> (numberisInteger(newPage) &amp;&amp; newPage &gt;= <span class="hljs-number">0</span> &amp;&amp; newPage &lt; <span class="hljs-keyword">this</span>.getNumPages()) {
+					page = newPage;
+				} <span class="hljs-keyword">else</span> {
+					<span class="hljs-keyword">throw</span> <span class="hljs-string">"Paginate page must be between 0 and numPages: "</span> + <span class="hljs-keyword">this</span>.getNumPages();
+				}
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h1 id="getcount-">getCount()</h1>
+<p>Returns the current number of items returned per page.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getCount: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateGetCount</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> count;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h1 id="getpage-">getPage()</h1>
+<p>Returns the current page index.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateGetPage</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> page;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h1 id="getvisiblecontent-">getVisibleContent()</h1>
+<p>Returns a list of the currently visible content, based on
+page index, item count per page, and the function passed
+to the constructor.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getVisibleContent: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateGetVisibleContent</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> visibleList = [];
+				<span class="hljs-keyword">var</span> content = getContent();
+				<span class="hljs-keyword">if</span> (page &gt;= <span class="hljs-keyword">this</span>.getNumPages()) {
+					page = <span class="hljs-number">0</span>;
+				}
+				<span class="hljs-keyword">var</span> startIndex = page * count;
+				visibleList = content.slice(startIndex, startIndex + count);
+				<span class="hljs-keyword">return</span> visibleList;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h1 id="getpages-">getPages()</h1>
+<p>Returns an array describing each page, listing index, whether
+it is the first or last page, and the number of items returned.
+Written to make custom page navigation easier.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getPages: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateGetPages</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">var</span> pageList = [];
+				<span class="hljs-keyword">var</span> content = getContent();
+				<span class="hljs-keyword">var</span> numPages = <span class="hljs-keyword">this</span>.getNumPages();
+				<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; numPages; i++) {
+					pageList.push({
+						<span class="hljs-string">"count"</span>: count,
+						<span class="hljs-string">"index"</span>: i,
+						<span class="hljs-string">"first"</span>: i === <span class="hljs-number">0</span>,
+						<span class="hljs-string">"last"</span>: i === numPages - <span class="hljs-number">1</span>
+					});
+				}
+				<span class="hljs-keyword">if</span> (pageList.length &gt; <span class="hljs-number">0</span>) {
+					pageList[pageList.length - <span class="hljs-number">1</span>].count = content.length % count;
+				}
+				<span class="hljs-keyword">return</span> pageList;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h1 id="getnumpages-">getNumPages()</h1>
+<p>Returns the number of pages based on number of items per page.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getNumPages: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateNumPages</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.ceil(getContent().length / count);
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h1 id="getisfirstpage-">getIsFirstPage()</h1>
+<p>Returns true if the currently returned page is the first.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getIsFirstPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateIsFirstPage</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> page === <span class="hljs-number">0</span>;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h1 id="getisfirstpage-">getIsFirstPage()</h1>
+<p>Returns true if the currently returned page is the last.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			getIsLastPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateIsLastPage</span>(<span class="hljs-params"></span>) </span>{
+				<span class="hljs-keyword">return</span> page === <span class="hljs-keyword">this</span>.getNumPages() - <span class="hljs-number">1</span>;
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h1 id="firstpage-">firstPage()</h1>
+<p>Sets the page index to 0, or the first page.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			firstPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateFirstPage</span>(<span class="hljs-params"></span>) </span>{
+				page = <span class="hljs-number">0</span>;
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h1 id="prevpage-">prevPage()</h1>
+<p>Sets the page index to the current - 1, or to itself
+if on the first page.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			prevPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginatePrevPage</span>(<span class="hljs-params"></span>) </span>{
+				page = !<span class="hljs-keyword">this</span>.getIsFirstPage() ? page - <span class="hljs-number">1</span> : page;
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h1 id="nextpage-">nextPage()</h1>
+<p>Sets the page index to the current + 1, or to itself
+if on the last page.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			nextPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateNextPage</span>(<span class="hljs-params"></span>) </span>{
+				page = !<span class="hljs-keyword">this</span>.getIsLastPage() ? page + <span class="hljs-number">1</span> : page;
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h1 id="firstpage-">firstPage()</h1>
+<p>Sets the page index to <code>getNumPages() - 1</code>, or the last page.
+Returns the current visible content.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			lastPage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paginateLastPage</span>(<span class="hljs-params"></span>) </span>{
+				page = <span class="hljs-keyword">this</span>.getNumPages() - <span class="hljs-number">1</span>;
+				<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getVisibleContent();
+			}
+		};
+	};
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">"function"</span> &amp;&amp; define.amd) {
+		define(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+			<span class="hljs-keyword">return</span> paginate;
+		});
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">module</span>.exports) {
+		<span class="hljs-built_in">module</span>.exports = paginate;
+	} <span class="hljs-keyword">else</span> {
+		that.paginate = paginate;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">numberisInteger</span>(<span class="hljs-params">value</span>) </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">"number"</span> &amp;&amp;
+			<span class="hljs-built_in">isFinite</span>(value) &amp;&amp;
+			<span class="hljs-built_in">Math</span>.floor(value) === value;
+	}
+
+}(<span class="hljs-keyword">this</span>));</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
